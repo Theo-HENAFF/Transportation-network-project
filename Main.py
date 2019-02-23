@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 22 10:29:20 2019
+Created on Tues Jan 22 10:29:20 2019
 
 @author: Théo
 """
@@ -11,7 +11,7 @@ from datetime import datetime as time
 
 
 def Creation (FileName,Num_Ligne) :
-    os.chdir("C:\\Users\\Théo\\Documents\\Cours\\S6\\PROJ631 - Projet algorithmique\\TP Sibra")
+    os.chdir("C:\\Users\\Théo\\Documents\\Cours\\S6\\PROJ631 - Projet algorithmique\\data")
     with open(FileName,"r") as f:
         type_ligne =0
         retour = 0
@@ -208,53 +208,76 @@ def Creation (FileName,Num_Ligne) :
 
 liste_arc1,liste_arret1 = Creation('1_Poisy-ParcDesGlaisinsModifie.txt',1)
 liste_arc2,liste_arret2 = Creation('2_Piscine-Patinoire_Campus.txt',2)
-    
+
+
+
+###Ajout des lignes sur chaque arret###    
 for arret1 in liste_arret1:
     for arret2 in liste_arret2:
         if arret1.getName() == arret2.getName():
             arret1.setLigne(2)
             arret2.setLigne(1)
 
+###Création de liste de lignes###
+liste_ligne =[[],[liste_arret1,liste_arc1],[liste_arret2,liste_arret2]]
+#l'indice de la liste corespond au numéro de la ligne car i=0 =  []
 
 
 
 
 
 
-a=5
-#print(liste_arc[a].getArret_dep(), liste_arc[a].getArret_arr(), liste_arc[a].getTemps_retourV())
-print(liste_arret1[a].getName(), liste_arret1[a].getHeure_aller())
-print(liste_arret1[a].getLignes())
+#def parcours (liste_arret,arret_dep,arret_arrive):
+#    #on va chercher l indice de l arret de depart avant de commencer la partie rec
+#    i=0
+#    sens_retour =0
+#    while arret_dep != liste_arret[i].getName():
+#        i+=1
+#        if liste_arret[i].getName() == arret_arrive:
+#            sens_retour = 1
+#    def partie_rec (liste_arret,i):
+#        if liste_arret1[i].getName() == arret_arrive :
+#            return 'TROUVE !!!'
+#        else:
+#            if sens_retour == 0:
+#                i+=1
+#                return partie_rec (liste_arret,i)
+#                
+#            elif sens_retour == 1:
+#                i-=1
+#                return partie_rec (liste_arret,i)
+#    return partie_rec(liste_arret1,i)
+ 
 
-#print(liste_arc[a].getArret_dep(), liste_arc[a].getArret_arr(), liste_arc[a].getTemps_retourV())
-print(liste_arret2[a].getName(), liste_arret2[a].getHeure_aller())
-print(liste_arret2[a].getLignes())
 
-def parcours (arret_dep,arret_arr):
-    #on va chercher l indice de l arret de depart avant de commencer la partie rec
+   
+def parcours2 (arret_dep, arret_arrive, numLigne_dep, liste_ligne):
+    liste_arret,liste_arc = liste_ligne[numLigne_dep]
     i=0
     sens_retour =0
-    while arret_dep != liste_arret1[i].getName():
+    while arret_dep != liste_arret[i].getName():
         i+=1
-        if liste_arret1[i].getName() == arret_arr:
+        if liste_arret[i].getName() == arret_arrive:
             sens_retour = 1
-    def partie_rec (liste_arret,i):
-        if liste_arret1[i].getName() == arret_arr :
-            return 'TROUVE !!!'
+    def partie_rec2 (arret_dep,arret_arrive,i):
+        if liste_arc[i].getArret_arr() == arret_arrive:
+            return 'TRRRRRRRROUVEEEEEEEEE'
         else:
-            if len(liste_arret[a].getLignes()) == 1 and sens_retour == 0:
-                i+=1
-                return partie_rec (liste_arret,i)
+            if sens_retour == 0:
+                return partie_rec2 (liste_arc[i].getArret_arr(),arret_arrive,i+1)
                 
-            elif len(liste_arret[a].getLignes()) == 1 and sens_retour == 1:
-                i-=1
-                return partie_rec (liste_arret,i)
-    return partie_rec(liste_arret1,i)
-    
-                
+            elif sens_retour == 1:
+                return partie_rec2 (liste_arc[i].getArret_arr(),arret_arrive,i-1)
+    return partie_rec2 (arret_dep,arret_arrive,i)
 
-print(parcours('GARE','Vernod'))
- 
+
+
+
+
+
+#print(parcours(liste_arret1,'Vernod','Ponchy'))
+    
+print(parcours2('Vernod','Ponchy',1,liste_ligne)) 
     
     
     

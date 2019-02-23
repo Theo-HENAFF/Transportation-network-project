@@ -32,8 +32,6 @@ class arret :
     ##getters##
     def getName(self):
         return self.name
-    def getLignes(self):
-        return self.lignes
     def getHeure_aller(self):
         return self.heure_aller
     def getHeure_retour(self):
